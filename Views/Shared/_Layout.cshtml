@@ -1,0 +1,23 @@
+﻿@*Create the layout with simple style applied accorss all pages.
+*@
+ <!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>SportsStore</title>
+    <link href="/lib/twitter-bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body class="justify-content-center;" style="width: 100%; margin: 0 auto;">
+    <div class="bg-dark text-white p-2 d-flex justify-content-center" align="center">
+        <span class="navbar-brand ml-2">ザ・スーパーゴールデンブックリスト</span>
+    </div>
+    <br />
+    <br />
+    <div class="d-flex justify-content-center">
+        <div class="justify-content-center;">
+@*            Put the body content HERE
+*@            @RenderBody()
+        </div>
+    </div>
+</body>
+</html>

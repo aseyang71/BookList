@@ -1,0 +1,58 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+@model IQueryable<BLP>
+
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<h2>Chen-Han's List <span class="badge badge-pill badge-secondary">New</span></h2>
+@*use a foreach loop to show each data from the database in the view
+*@
+@foreach (var i in Model)
+{
+    <div class="card card-outline-primary m-1 p-1">
+        <div class="bg-faded p-1">
+            <h4>
+                @i.Title
+                <span class="badge badge-pill" style="float:right">
+                    <button class="btn btn-outline-dark badge badge-pill">
+                        <large>Buy with 1-Click @i.Price.ToString("c")</large>
+                    </button>
+                </span>
+            </h4>
+        </div>
+        <div>
+@*            <div class="card-text p-1">@i.BookId</div>*@
+            <div class="card-text p-1">By @i.AuthorFirstName, @i.AuthorLastName</div>
+            <div class="card-text p-1">Publisher: @i.Publisher</div>
+            <div class="card-text p-1">Category 1: @i.Category1</div>
+            <div class="card-text p-1">Category 2: @i.Category2</div>
+            <div class="card-text p-1">@i.ISBN</div>
+        </div>
+    </div>
+}
+
+@*Notes*@
+<!------ Include the above in your HEAD tag ---------->
+@*
+    <nav class="navbar navbar-icon-top navbar-expand-lg navbar-dark bg-dark">
+
+        <a class="navbar-brand" href="#">Chen-Han's List</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">
+                        <i class="fa fa-home"></i>
+                        Home
+                        <span class="sr-only">(current)</span>
+                    </a>
+                </li>
+        </div>
+    </nav>*@
