@@ -33,6 +33,7 @@ namespace BookList.Models
         [Required]
         //Restrict the length of ISBN to 14
         [StringLength(14)]
+        [RegularExpression("\d{10,13}).*?_(\d{3})|(\d{3}).*?_(\d{10,13})|(\d{10,13})(?=[^\d]")]
         [Display(Description = "ISBN")]
         public string ISBN { get; set; }
 
@@ -50,5 +51,7 @@ namespace BookList.Models
         /*[System.ComponentModel.DataAnnotations.Schema.Column(TypeName = "decimal(18,4)")]*/
         [RegularExpression(@"\d+(\.\d{1,2})?", ErrorMessage = "Invalid Price")]
         public float Price { get; set; }
+
+/*        public string Comments { get; set; }*/
     }
 }
