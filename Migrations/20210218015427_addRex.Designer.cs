@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookList.Migrations
 {
     [DbContext(typeof(BookListDbContext))]
-    [Migration("20210214172804_Initial")]
-    partial class Initial
+    [Migration("20210218015427_addRex")]
+    partial class addRex
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -41,6 +41,9 @@ namespace BookList.Migrations
 
                     b.Property<string>("Category2")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Comments")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ISBN")

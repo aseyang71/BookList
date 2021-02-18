@@ -14,6 +14,7 @@ namespace BookList.Controllers
         private readonly ILogger<HomeController> _logger;
 
         private IBookListRepository _repository;
+        public int ItemsPerPage = 4; 
 /*        public int PageSize = 4; 
 */       public HomeController(ILogger<HomeController> logger, IBookListRepository repository)
         {
@@ -21,9 +22,13 @@ namespace BookList.Controllers
             _repository = repository;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int page = 1)
         {
-            return View(_repository.BLPs );
+            return View(_repository.BLPs
+                .OrderBy(b => b.BookId)
+                .Skip((page -1) * ItemsPerPage)
+                .Take(ItemsPerPage )
+                ); 
         }
 
         public IActionResult Privacy()

@@ -33,7 +33,7 @@ namespace BookList.Models
         [Required]
         //Restrict the length of ISBN to 14
         [StringLength(14)]
-        [RegularExpression("\d{10,13}).*?_(\d{3})|(\d{3}).*?_(\d{10,13})|(\d{10,13})(?=[^\d]")]
+        [RegularExpression("^(?:ISBN(?:-13)?:?\\ )?(?=[0-9]{13}$|(?=(?:[0-9]+[-\\ ]){4})[-\\ 0-9]{17}$)97[89][-\\ ]?[0-9]{1,5}[-\\ ]?[0-9]+[-\\ ]?[0-9]+[-\\ ]?[0-9]$", ErrorMessage = "Must be a valid ISBN number in format and 10 or 13 digits")]
         [Display(Description = "ISBN")]
         public string ISBN { get; set; }
 
@@ -48,10 +48,9 @@ namespace BookList.Models
         [Required]
         [Display(Description = "Price")]
         [DataType(DataType.Currency)]
-        /*[System.ComponentModel.DataAnnotations.Schema.Column(TypeName = "decimal(18,4)")]*/
         [RegularExpression(@"\d+(\.\d{1,2})?", ErrorMessage = "Invalid Price")]
         public float Price { get; set; }
 
-/*        public string Comments { get; set; }*/
+        public string Comments { get; set; }
     }
 }

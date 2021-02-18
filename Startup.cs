@@ -63,7 +63,7 @@ namespace BookList
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
 
-/*            SeedData.EnsurePopulated(app);*/
-        }
+/*            SeedData.EnsurePopulated(app);
+*/        }
     }
 }
