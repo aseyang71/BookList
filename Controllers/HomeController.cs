@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using BookList.Models.ViewModels;
 
 namespace BookList.Controllers
 {
@@ -14,9 +15,9 @@ namespace BookList.Controllers
         private readonly ILogger<HomeController> _logger;
 
         private IBookListRepository _repository;
-        public int ItemsPerPage = 4; 
-/*        public int PageSize = 4; 
-*/       public HomeController(ILogger<HomeController> logger, IBookListRepository repository)
+        public int PageSize = 5; 
+
+        public HomeController(ILogger<HomeController> logger, IBookListRepository repository)
         {
             _logger = logger;
             _repository = repository;
@@ -24,14 +25,24 @@ namespace BookList.Controllers
 
         public IActionResult Index(int page = 1)
         {
-            return View(_repository.BLPs
-                .OrderBy(b => b.BookId)
-                .Skip((page -1) * ItemsPerPage)
-                .Take(ItemsPerPage )
-                ); 
+            return View
+            (new ProjectListViewModel
+                {
+                    BLPs = _repository.BLPs
+                        .OrderBy(b => b.BookId)
+                        .Skip((page - 1) * PageSize)
+                        .Take(PageSize),
+                    PagingInfo = new PagingInfo
+                    {
+                        CurrentPage = page,
+                        ItemsPerPage = PageSize,
+                        TotalNumItems = _repository.BLPs.Count()
+                    }
+                }
+            );
         }
 
-        public IActionResult Privacy()
+            public IActionResult Video()
         {
             return View();
         }

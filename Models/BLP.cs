@@ -51,6 +51,8 @@ namespace BookList.Models
         [RegularExpression(@"\d+(\.\d{1,2})?", ErrorMessage = "Invalid Price")]
         public float Price { get; set; }
 
-        public string Comments { get; set; }
+        public string PageNum { get; set; }
+
+        /*        public string getPathName() { return BookId".png"; }*/
     }
 }
