@@ -14,6 +14,7 @@ namespace BookList.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
+        // Set PageSize to 5 so that each page only displays up to 5 items 
         private IBookListRepository _repository;
         public int PageSize = 5; 
 
