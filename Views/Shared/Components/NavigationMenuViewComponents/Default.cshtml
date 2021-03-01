@@ -1,0 +1,19 @@
+﻿@model IEnumerable<string> 
+
+<a class="btn btn-block btn-outline-secondary" asp-action="Index" asp-controller="Home" 
+asp-route-category="">
+    Home
+</a>
+
+@foreach (string category in Model)
+{
+    //Dynamically highlight the category that has been selected
+    
+    // When the category is selected, the btn-primary Bootstrap class is applied, otherwise(else) the btn-outline-secondary class is applied 
+    <a class="btn btn-block @(category == ViewBag.SelectedType ? "btn-primary" : "btn-outline-secondary")"
+       asp-action="Index" asp-controller="Home"
+       asp-route-category="@category"
+       asp-route-page="1">
+        @category
+    </a>
+} 

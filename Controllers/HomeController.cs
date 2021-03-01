@@ -24,23 +24,35 @@ namespace BookList.Controllers
             _repository = repository;
         }
 
-        public IActionResult Index(int page = 1)
+        public IActionResult Index(string category, int page = 1)
         {
             return View
             (new ProjectListViewModel
-                {
-                    BLPs = _repository.BLPs
+            {
+/*                Added the ability to filter by category in the Controller
+*/                BLPs = _repository.BLPs
+                        .Where(b => category == null || b.Category1 == category)
                         .OrderBy(b => b.BookId)
                         .Skip((page - 1) * PageSize)
                         .Take(PageSize),
-                    PagingInfo = new PagingInfo
-                    {
-                        CurrentPage = page,
-                        ItemsPerPage = PageSize,
-                        TotalNumItems = _repository.BLPs.Count()
-                    }
-                }
-            );
+                PagingInfo = new PagingInfo
+                {
+                    CurrentPage = page,
+                    ItemsPerPage = PageSize,
+
+                    //Fix the page numbering to match the number ofitems by category
+
+                    // When there's no category selected, we use  the total number of page counts to be displayed on the website
+                    TotalNumItems = category == null ? _repository.BLPs.Count() :
+
+                    // Otherwise, we re-calculate the total number of pages for the selected category and display it
+                    _repository.BLPs.Where(x => x.Category1 == category).Count()
+
+                },
+
+                CurCat = category
+            }
+            ) ;
         }
 
             public IActionResult Video()

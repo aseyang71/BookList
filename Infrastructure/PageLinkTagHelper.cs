@@ -27,11 +27,17 @@ namespace BookList.Infrastructure
         public PagingInfo PageModel { get; set; }
         public string PageAction { get; set; }
 
+        // Create a Dictionary property to store each combination of urls used by the user as string objects
+        [HtmlAttributeName(DictionaryAttributePrefix = "page-url-")] 
+        public Dictionary<string, object> PageUrlValues { get; set; } = new Dictionary<string, object>();
+
         public bool PageClassesEnabled { get; set; } = false; 
 
         public string PageClass { get; set; }
 
         public string PageClassNormal { get; set; }
+
+        // Create the PageClassSelected string property to show which category is selected (by Category1) in the HomeController.cs file
         public string PageClassSelected { get; set; }
 
         //Overriding 
@@ -44,7 +50,11 @@ namespace BookList.Infrastructure
             for (int i = 1; i <= PageModel.TotalPages; i++)
             {
                 TagBuilder tag = new TagBuilder("a");
-                tag.Attributes["href"] = urlHelper.Action(PageAction, new { page = i });
+
+                //Set PageUrlValues to i, which is the number of page
+                PageUrlValues["page"] = i;
+                tag.Attributes["href"] = urlHelper.Action(PageAction, 
+                    PageUrlValues);
 
                 if (PageClassesEnabled)
                 {

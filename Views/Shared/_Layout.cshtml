@@ -9,46 +9,43 @@
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <link href="~/css/site.css" rel="stylesheet" />
 </head>
-
-<body class="">
-    <header>
-        <div class="content">
-        </div>
-    </header>
-
+<body>
 @*    Navigation bar 
-*@    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+*@    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">BookList</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#menu">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" asp-action="Index">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" asp-action="Video">Video</a>
-                    </li>
 
+            <div class="collapse navbar-collapse" id="menu">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" asp-action="Index">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-action="Video">Video</a>
+                    </li>
                 </ul>
             </div>
         </div>
-    </nav>
-@*    Shared title 
-*@  <div class="bg-light text-dark p-2 d-flex justify-content-center" align="center">
-        <span class="ml-2">ザ・スーパーゴールデンブックリスト</span>
-    </div>
-    <br />
-    <br />
+      </nav>
 
-    <div class="d-flex justify-content-center">
-        <div class="justify-content-center;">
-            @*            Put the body content HERE
-            *@            @RenderBody()
-        </div>
-    </div>
+      <div class="row">
+          <div class="col-md-3 bg-light text-dark">
+              <br />
+              <br />
+              <br />
+              <h2 class="">ザ・スーパーゴールデンブックリスト</h2>
+@*              <vc:navigation-menu />*@
+              <vc:navigation-menu-view-components></vc:navigation-menu-view-components>
+          </div>
+          <br />
+          <br />
+          <div class="col-md-9">
+                @RenderBody()
+          </div>
+      </div>
 
     <script src="~/js/site.js"></script>
 </body>

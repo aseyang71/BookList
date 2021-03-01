@@ -8,7 +8,7 @@
 
 @*card header with shared title in each book list page*@
 @model ProjectListViewModel
-<div class="row justify-content-center">
+<div class="row">
     <div class="col-auto mb-1">
         <div class="card">
             <div class="text-center font-weight-bold">
@@ -24,53 +24,13 @@
 *@
 @foreach (var i in Model.BLPs)
 {
-    <div class="card card-outline-primary m-1 p-1" style="width:600px">
-        <div class="card-body bg-faded p-1">
-            <h4>
-                @i.Title
-                <span class="badge badge-pill" style="float:right">
-                    <button class="btn btn-outline-dark badge badge-pill">
-                        <large>Buy with 1-Click @i.Price.ToString("c")</large>
-                    </button>
-                </span>
-            </h4>
-        </div>
-
-@*Added the Primary key of the table "BookId"
-*@        <div class="card-header">
-            Rank #@i.BookId
-        </div>
-
-        <div class="container">
-            <div class="row justify-content-evenly">
-                <div class="card border-light col-6">
-                    <div class="card-text p-1">By @i.AuthorFirstName, @i.AuthorLastName</div>
-                    <div class="card-text p-1">Publisher: @i.Publisher</div>
-                    <div class="card-text p-1">Category 1: @i.Category1</div>
-                    <div class="card-text p-1">Category 2: @i.Category2</div>
-                    <div class="card-text p-1">@i.ISBN</div>
-                </div>
-
-                <div class="card border-light col-6">
-                    @*<img src="@("~/img/" + i.BookId + ".png")" class="card-img-top" alt="Image">*@
-                    @*                <img src="~/img/1.png" class="card-img-top" alt="Image">
-
-        Combine the img src with the PK to dynamically display each image for each book 
-                    *@                <img src="~/img/@(i.BookId).jpg" alt="Book Image" />
-                </div>
-            </div>
-        </div>
-@*        Display the total number of pages in each book
-*@        <div class="card-footer text-muted">
-            @i.PageNum Pages
-        </div>
-    </div>
-    <br />
+    <partial name="BLPSummary" model="i" /> 
 }
 <br />
-@*Display the current page and change the color when hover over other pages 
+@*Display the current page and change the color hover over other pages 
 *@
 <div class="text-center font-weight-bolder">
     <div page-model="@Model.PagingInfo" page-action="Index" page-classes-enabled="true" page-class="btn"
-         page-class-normal="btn-outline-dark" page-class-selected="btn-success" class="btn-group" pull-right m-1></div>
+         page-class-normal="btn-outline-dark" page-class-selected="btn-success" page-url-category="@Model.CurCat"
+         class="btn-group pull-right m-1"></div>
 </div>

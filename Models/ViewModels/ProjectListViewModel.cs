@@ -9,5 +9,8 @@ namespace BookList.Models.ViewModels
     {
         public IEnumerable<BLP> BLPs { get; set; }
         public PagingInfo PagingInfo { get; set; }
+
+        // use CurCat property to display which category is currently selected in the HomeController.cs file
+        public string CurCat { get; set; }
     }
 }

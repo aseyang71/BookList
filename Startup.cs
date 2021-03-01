@@ -1,4 +1,4 @@
-using BookList.Models;
+﻿using BookList.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -58,14 +58,24 @@ namespace BookList
 
             app.UseEndpoints(endpoints =>
             {
+                //Improve the URLs to a pattern that is more user-friendly
+                // Created a few new endpoints route controllers for different url input scenarios such as /{pageNumber}, /{Category}, and {Category}/{pageNumber} below
                 endpoints.MapControllerRoute(
                     "pagination",
                     "P{page}",
                     new { Controller = "Home", action = "Index" });
 
+                // Build in the functionality so that the category is dynamically-displayed in the URL
+                // I use the property "Category1" from BLP.cs model to categorize each category such as (English) 1. Fiction 2. Non-fiction (Mandarin) 3.商業理財 and 4.投資學
+                endpoints.MapControllerRoute("catpage",
+                    "{category}/{page:int}",
+                    new { Controller = "Home", action = "Index" });
+
+                endpoints.MapControllerRoute("category",
+                    "{category}",
+                    new { Controller = "Home", action = "Index" });
+                  
                 endpoints.MapDefaultControllerRoute();
-/*                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");*/
             });
 
             SeedData.EnsurePopulated(app);
