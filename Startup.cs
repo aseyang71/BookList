@@ -29,11 +29,19 @@ namespace BookList
             services.AddControllersWithViews();
             services.AddDbContext<BookListDbContext>(options =>
            {
-               options.UseSqlServer(Configuration["ConnectionStrings:BookListConnection"]);
+               //options.UseSqlServer(Configuration["ConnectionStrings:BookListConnection"]);
+               options.UseSqlite(Configuration["ConnectionStrings:BookListConnection"]);
            });
 
             // Adding <TService, TImplementation>
             services.AddScoped<IBookListRepository, EFBookListRepository>();
+
+            //Configure new services for making RazorPages.
+            services.AddRazorPages();
+
+            // Add the following services to be able to store cart information while session is running 
+            services.AddDistributedMemoryCache();
+            services.AddSession();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -52,6 +60,8 @@ namespace BookList
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
+            app.UseSession();
+
             app.UseRouting();
 
             app.UseAuthorization();
@@ -62,20 +72,27 @@ namespace BookList
                 // Created a few new endpoints route controllers for different url input scenarios such as /{pageNumber}, /{Category}, and {Category}/{pageNumber} below
                 endpoints.MapControllerRoute(
                     "pagination",
-                    "P{page}",
+                    "P{pageNum:int}",
                     new { Controller = "Home", action = "Index" });
 
                 // Build in the functionality so that the category is dynamically-displayed in the URL
                 // I use the property "Category1" from BLP.cs model to categorize each category such as (English) 1. Fiction 2. Non-fiction (Mandarin) 3.商業理財 and 4.投資學
                 endpoints.MapControllerRoute("catpage",
-                    "{category}/{page:int}",
+                    "{category}/{pageNum:int}",
                     new { Controller = "Home", action = "Index" });
+
+                endpoints.MapControllerRoute("page",
+                    "{pageNum:int}",
+                new { Controller = "Home", action = "Index" });
 
                 endpoints.MapControllerRoute("category",
                     "{category}",
                     new { Controller = "Home", action = "Index" });
                   
                 endpoints.MapDefaultControllerRoute();
+
+                //Configure new endpoints services for making RazorPages.
+                endpoints.MapRazorPages();
             });
 
             SeedData.EnsurePopulated(app);

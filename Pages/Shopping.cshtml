@@ -1,0 +1,57 @@
+﻿@page
+
+@model BookList.Pages.ShoppingModel
+
+@{
+}
+
+
+<h2>Shopping Cart</h2>
+
+<table class="table table-corered table-striped" style="width: 450px;">
+    <thead>
+        <tr>
+            <th>Book</th>
+            <th>Quanity</th>
+            <th>Price</th>
+            <th>Subtotal</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var line in Model.Cart.Lines)
+        {
+        <tr>
+            <td class="text-left">@line.Project.Title</td>
+            <td>@line.Quantity</td>
+            <td class="text-right">@line.Project.Price</td>
+            <td class="text-right">@((line.Quantity * line.Project.Price).ToString("c"))</td>
+            <td class="text-center">
+                <form asp-page-handler="Remove" method="post">
+                    <input type="hidden" name="BookId"
+                           value="@line.Project.BookId" />
+                    <input type="hidden" name="returnUrl"
+                           value="@Model.ReturnUrl" />
+                    <button type="submit" class="btn btn-sm btn-danger">
+                        Remove
+                    </button>
+                </form>
+            </td>
+        </tr>
+        }
+    </tbody>
+
+    <tfoot>
+        <tr>
+            <td colspan="3">Total:</td>
+            <td>@Model.Cart.ComputeTotalSum().ToString("c")</td>
+        </tr>
+    </tfoot>
+</table>
+
+<div class="text-left">
+    <a class="btn btn-primary" href="@Model.ReturnUrl">
+        Continue Shopping
+    </a>
+</div>
+

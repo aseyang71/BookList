@@ -52,7 +52,7 @@ namespace BookList.Infrastructure
                 TagBuilder tag = new TagBuilder("a");
 
                 //Set PageUrlValues to i, which is the number of page
-                PageUrlValues["page"] = i;
+                PageUrlValues["pageNum"] = i;
                 tag.Attributes["href"] = urlHelper.Action(PageAction, 
                     PageUrlValues);
 

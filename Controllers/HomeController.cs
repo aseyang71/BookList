@@ -24,7 +24,7 @@ namespace BookList.Controllers
             _repository = repository;
         }
 
-        public IActionResult Index(string category, int page = 1)
+        public IActionResult Index(string category, int pageNum = 1)
         {
             return View
             (new ProjectListViewModel
@@ -33,11 +33,11 @@ namespace BookList.Controllers
 */                BLPs = _repository.BLPs
                         .Where(b => category == null || b.Category1 == category)
                         .OrderBy(b => b.BookId)
-                        .Skip((page - 1) * PageSize)
+                        .Skip((pageNum - 1) * PageSize)
                         .Take(PageSize),
                 PagingInfo = new PagingInfo
                 {
-                    CurrentPage = page,
+                    CurrentPage = pageNum,
                     ItemsPerPage = PageSize,
 
                     //Fix the page numbering to match the number ofitems by category
@@ -64,6 +64,12 @@ namespace BookList.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        public ViewResult Summary(Cart cart)
+
+        { 
+            return View(cart);
         }
     }
 }
