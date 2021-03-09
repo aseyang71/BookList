@@ -13,29 +13,26 @@
 </head>
 <body>
 
-@*    Navigation bar 
-*@    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-          <div class="container-fluid">
-              <a class="navbar-brand" href="#">BookList</a>
-              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#menu">
-                  <span class="navbar-toggler-icon"></span>
-              </button>
+@*    Navigation bar*@    
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">BookList</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#menu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-              <div class="collapse navbar-collapse" id="menu">
-                  <ul class="navbar-nav ml-auto">
-                      <li class="nav-item">
-                          <a class="nav-link active" asp-action="Index">Home</a>
-                      </li>
-                      <li class="nav-item">
-                          <a class="nav-link" asp-action="Video">Video</a>
-                      </li>
-                  </ul>
-              </div>
-              <div class="col-6 text-right">
-                  <vc:cart-summary />
-              </div>
-          </div>
-      </nav>
+            <div class="collapse navbar-collapse justify-content-end" id="menu">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" asp-action="Index">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-6 text-right">
+                <vc:cart-summary />
+            </div>
+        </div>
+    </nav>
 
       <div class="row">
           <div class="col-md-3 bg-light text-dark">

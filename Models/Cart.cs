@@ -9,7 +9,7 @@ namespace BookList.Models
     {
         public List<CartLine> Lines { get; set; } = new List<CartLine>();
 
-        public void AddItem(BLP proj, int qty)
+        public virtual void AddItem(BLP proj, int qty)
         {
             CartLine line = Lines
                 .Where(p => p.Project.BookId == proj.BookId)
@@ -29,22 +29,24 @@ namespace BookList.Models
             }
         }
 
-        public void RemoveLine(BLP proj) =>
+        public virtual void RemoveLine(BLP proj) =>
             Lines.RemoveAll(x => x.Project.BookId == proj.BookId);
 
-        public void Clear() => Lines.Clear();
+        // This method calculate the total price and covert the result to decimal type 
+        public decimal ComputeTotalSum() =>
+            (decimal)Lines.Sum(e => e.Project.Price * e.Quantity);
 
-        public decimal ComputeTotalSum()
-        {
-            return (decimal)Lines.Sum(e => e.Project.Price * e.Quantity);
-        }
+        // Clear method
+        public virtual void Clear() => Lines.Clear();
+
 
         public class CartLine
         {
+            // The Cart class uses the CartLine class, defined in the same file, to represent a product selected by the customer and the qty the user wants to buy.
             public int CartLineID { get; set; }
             public BLP Project { get; set; }
             public int Quantity { get; set; }
-            public long BookId { get; internal set; }
-        }
+/*            public long BookId { get; internal set; }
+*/        }
     }
 }

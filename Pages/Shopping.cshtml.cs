@@ -15,9 +15,11 @@ namespace BookList.Pages
 
 
         //Constructor
-        public ShoppingModel (IBookListRepository repo)
+        public ShoppingModel (IBookListRepository repo, Cart cartService)
         {
             repository = repo;
+            //Simplifing cart service code
+            Cart = cartService;
         }
 
 
@@ -30,20 +32,20 @@ namespace BookList.Pages
         public void OnGet(string returnUrl)
         {
             ReturnUrl = returnUrl ?? "/";
-            Cart = HttpContext.Session.GetJson<Cart>("cart") ?? new Cart();
-        }
+/*            Cart = HttpContext.Session.GetJson<Cart>("cart") ?? new Cart();
+*/        }
 
         public IActionResult OnPost(long bookId, string returnUrl)
         {
             BLP bLP = repository.BLPs
                 .FirstOrDefault(p => p.BookId == bookId);
 
-            Cart = HttpContext.Session.GetJson<Cart>("cart") ?? new Cart();
-
+/*            Cart = HttpContext.Session.GetJson<Cart>("cart") ?? new Cart();
+*/
             Cart.AddItem(bLP, 1);
 
-            HttpContext.Session.SetJson("cart", Cart);
-
+/*            HttpContext.Session.SetJson("cart", Cart);
+*/
             return RedirectToPage(new { returnUrl = returnUrl });
         }
 

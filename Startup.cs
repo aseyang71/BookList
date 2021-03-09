@@ -1,10 +1,12 @@
 ﻿using BookList.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
@@ -42,6 +44,14 @@ namespace BookList
             // Add the following services to be able to store cart information while session is running 
             services.AddDistributedMemoryCache();
             services.AddSession();
+
+
+            // Service to get cart session data.
+            services.AddScoped<Cart>(sp => SessionCart.GetCart(sp));
+
+            services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -57,13 +67,12 @@ namespace BookList
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+            app.UseDeveloperExceptionPage();
+            app.UseStatusCodePages();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
             app.UseSession();
-
             app.UseRouting();
-
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
