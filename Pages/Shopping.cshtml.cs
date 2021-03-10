@@ -18,7 +18,7 @@ namespace BookList.Pages
         public ShoppingModel (IBookListRepository repo, Cart cartService)
         {
             repository = repo;
-            //Simplifing cart service code
+            //Simplifing cart service code following Ch. 9 of the textbook
             Cart = cartService;
         }
 
@@ -41,7 +41,7 @@ namespace BookList.Pages
                 .FirstOrDefault(p => p.BookId == bookId);
 
 /*            Cart = HttpContext.Session.GetJson<Cart>("cart") ?? new Cart();
-*/
+*/          /*Method to add a new book */
             Cart.AddItem(bLP, 1);
 
 /*            HttpContext.Session.SetJson("cart", Cart);
@@ -55,8 +55,8 @@ namespace BookList.Pages
                 .FirstOrDefault(p => p.BookId == bookId);
 
             Cart = HttpContext.Session.GetJson<Cart>("cart") ?? new Cart();
-
-            Cart.RemoveLine(Cart.Lines.First(c =>
+/*            if we find the same id already exist, remove it from the db and return to the url
+*/          Cart.RemoveLine(Cart.Lines.First(c =>
             c.Project.BookId == bookId).Project);
 
             HttpContext.Session.SetJson("cart", Cart);

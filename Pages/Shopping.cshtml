@@ -7,7 +7,8 @@
 
 
 <h2>Shopping Cart</h2>
-
+@*Write and design the cart page using basic html and bootstrap
+*@
 <table class="table table-corered table-striped" style="width: 450px;">
     <thead>
         <tr>
@@ -27,7 +28,8 @@
             <td class="text-right">@line.Project.Price</td>
             <td class="text-right">@((line.Quantity * line.Project.Price).ToString("c"))</td>
             <td class="text-center">
-                <form asp-page-handler="Remove" method="post">
+@*              //using hidden input to store id and returnurl information
+*@              <form asp-page-handler="Remove" method="post">
                     <input type="hidden" name="BookId"
                            value="@line.Project.BookId" />
                     <input type="hidden" name="returnUrl"
